@@ -14,7 +14,7 @@
     <table id="csvTable"></table>
 
     <script>
-        fetch('https://raw.githubusercontent.com/ユーザー名/リポジトリ名/main/seating-chart.csv')
+        fetch('https://raw.githubusercontent.com/shota-natsumi/wedding-seating/main/seating-chart.csv')
         .then(response => response.text())
         .then(text => {
             let rows = text.split("\n");
