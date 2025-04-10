@@ -1,19 +1,32 @@
-<script>
-    fetch('https://raw.githubusercontent.com/shota-natsumi/wedding-seating/main/test.csv')
-    .then(response => response.text())
-    .then(text => {
-        let rows = text.split("\n");
-        let table = "<table border='1'>";
-        rows.forEach(row => {
-            let cells = row.split(",");
-            table += "<tr>";
-            cells.forEach(cell => {
-                table += "<td>" + cell + "</td>";
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>結婚式 席次表</title>
+    <style>
+        table { border-collapse: collapse; width: 80%; margin: auto; text-align: center; }
+        th, td { border: 1px solid #ccc; padding: 8px; }
+        th { background-color: #f8f8f8; }
+    </style>
+</head>
+<body>
+    <h1>結婚式 席次表</h1>
+    <table id="csvTable"></table>
+
+    <script>
+        fetch('https://raw.githubusercontent.com/ユーザー名/リポジトリ名/main/seating-chart.csv')
+        .then(response => response.text())
+        .then(text => {
+            let rows = text.split("\n");
+            let table = "<tr><th>席番号</th><th>名前</th></tr>";
+            rows.forEach(row => {
+                let cells = row.split(",");
+                if (cells.length > 1) {
+                    table += "<tr><td>" + cells[0] + "</td><td>" + cells[1] + "</td></tr>";
+                }
             });
-            table += "</tr>";
+            document.getElementById("csvTable").innerHTML = table;
         });
-        table += "</table>";
-        document.getElementById("csvTable").innerHTML = table;
-    });
-</script>
-<div id="csvTable"></div>
+    </script>
+</body>
+</html>
