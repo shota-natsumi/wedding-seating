@@ -1,11 +1,4 @@
-はい、GitHubにエクセルファイルをアップロードし、それをWebサイトで表示することは可能です。ただし、直接エクセルファイル（.xlsx）を表示するのではなく、CSVに変換して表示する方法や、JavaScriptライブラリを使ってデータを可視化する方法が一般的です。
-方法①：CSVに変換してWebサイトで表示
-- エクセルをCSV形式で保存- Excelファイル（.xlsx）を開き、**「名前を付けて保存」でCSV（UTF-8）**形式を選択。
-- test.csv という名前で保存。
-
-- GitHubリポジトリにアップロード- GitHubのリポジトリにCSVファイルを追加。
-
-- Webページで読み込む（JavaScript）<script>
+<script>
     fetch('https://raw.githubusercontent.com/shota-natsumi/wedding-seating/main/test.csv')
     .then(response => response.text())
     .then(text => {
@@ -24,32 +17,3 @@
     });
 </script>
 <div id="csvTable"></div>
-
-
-
-方法②：Excelファイルを直接読み込む（SheetJS）
-SheetJS（xlsx.js） というライブラリを使うと、エクセルファイルを読み込んで表示できます。
-- GitHubにエクセルファイルをアップロード
-- JavaScriptで読み込む<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<input type="file" id="uploadExcel" />
-<div id="excelData"></div>
-
-<script>
-    document.getElementById('uploadExcel').addEventListener('change', function(event) {
-        let file = event.target.files[0];
-        let reader = new FileReader();
-        reader.onload = function(e) {
-            let data = new Uint8Array(e.target.result);
-            let workbook = XLSX.read(data, { type: 'array' });
-            let sheet = workbook.Sheets[workbook.SheetNames[0]];
-            let html = XLSX.utils.sheet_to_html(sheet);
-            document.getElementById("excelData").innerHTML = html;
-        };
-        reader.readAsArrayBuffer(file);
-    });
-</script>
-
-
-
-この方法で、GitHub上のエクセルデータをWebサイトで表示できます。
-どちらの方法が合いそうですか？😊
